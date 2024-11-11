@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha384-vIUtZ00mTFSIdmQG7UN9tbC7NIEsxYjk+qc/+46EcBUw69sT1DR+Bsz+FIHIKFz0" crossorigin=""/>
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha384-NM/AMNE8OTBsaEuVaIfI5DlD/efzI0B+68rtGFwKn34SeyZ2HBAM+hv4QaW9sH0w" crossorigin=""></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APART'NER - Trouvez votre colocataire idéal</title>
+
+
+    <style>
+        /* Styles généraux */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* Couleurs de la charte graphique */
+        :root {
+            --primary-blue: #002366;
+            --secondary-gray: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #fff;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header nav a {
+            color: var(--text-light);
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Bannière */
+        .banner {
+            background-image: url('banniere.jpg'); /* Remplacez avec une image de votre choix */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .banner h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .banner p {
+            font-size: 1.2em;
+        }
+
+        .banner button {
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        /* Section principale */
+        .section {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .section h2 {
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+        }
+
+        /* Cartes utilisateur */
+        .user-card {
+            background-color: var(--text-light);
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            text-align: left;
+            display: inline-block;
+            width: 250px;
+        }
+
+        .user-card h3 {
+            color: var(--primary-blue);
+        }
+
+        .user-card p {
+            color: var(--text-dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div>
+         <h1>APART'NER</h1>
+        </div>
+        <nav>
+            <a href="#home">Accueil</a>
+            <a href="#how-it-works">Comment ça marche</a>
+            <a href="#find-roommate">Trouver un colocataire</a>
+            <a href="#about">À propos</a>
+            <a href="#contact">Compte</a>
+        </nav>
+    </header>
+
+    <!-- Bannière -->
+    <section class="banner" id="home">
+        <h1>Trouvez le colocataire idéal en toute confiance</h1>
+        <p>Un site web d'affiliation par affinité pour la recherche de colocataire</p>
+        <button>Commencez votre recherche</button>
+    </section>
+
+    <!-- Section Pourquoi nous choisir -->
+    <section class="section" id="why-choose-us">
+        <h2>Que proposons nous ?</h2>
+        <p>Apart’ner est un site de mise en relation avec d’autres individus dans le but de trouver son colocataire et de créer des liens entre personnes..</p>
+        <p>Il permet de répondre à la demande de nombreux individus à la recherche d’un colocataire qui rendra la vie à plusieurs plus simple.</p>
+        <p>Apart’ner prend en compte les profils d’individus ayant déjà trouvé ou non un bien immobilier et qui souhaiterait le partager avec d’autres. 
+            <p>Le site se sert des nouvelles technologies et utilise donc l’IA pour aider la mise en relation par affinité pour maximiser l’entente entre colocataires.</p>
+            </p>
+            <p>Pour cela, plusieurs critères sont donc utilisés tels que les loisirs, le courant de pensée, les divertissements, l’âge, le quartier ou encore le sexe.
+            </p>
+    </section>
+
+    <!-- Section Comment ça marche -->
+    <section class="section" id="how-it-works">
+        <h2>Comment ça marche</h2>
+        <div>
+            <p>Étape 1 : Inscription rapide et création de votre profil</p>
+            <p>Étape 2 : Test de compatibilité pour évaluer vos affinités</p>
+            <p>Étape 3 : Recherche et connexion avec des colocataires compatibles</p>
+        </div>
+    </section>
+
+    <!-- Section Trouver un colocataire -->
+    <section class="section" id="find-roommate">
+        <h2>Trouver un colocataire</h2>
+        <!-- Section de la carte interactive -->
+<section class="section" id="map-section">
+    <h2>Carte des profils de colocataires</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5567.4787766668305!2d4.8284216001869735!3d45.75637038432118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ea52244ab879%3A0xb0956981fd027394!2sBellecour%20-%20H%C3%B4tel%20Dieu%2C%20Lyon!5e0!3m2!1sfr!2sfr!4v1731347287879!5m2!1sfr!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
+        <div class="user-card">
+            <h3>Alex, 20 ans</h3>
+            <p>Aime les animaux, non-fumeur</p>
+            <p>Compatibilité : 90%</p>
+        </div>
+        <div class="user-card">
+            <h3>Marie, 24 ans</h3>
+            <p>Aime la tranquillité, végétarienne</p>
+            <p>Compatibilité : 85%</p>
+        </div>
+        <div class="user-card">
+            <h3>Lucas, 21 ans</h3>
+            <p>Aime le sport, aime cuisiner</p>
+            <p>Compatibilité : 85%</p>
+        </div>
+        <!-- Ajoutez plus de cartes utilisateur si nécessaire -->
+    </section>
+
+    <!-- Section À propos -->
+    <section class="section" id="about">
+        <h2>À propos de nous</h2>
+        <p>APART'NER est une plateforme dédiée à la recherche de colocataire par affinité. Notre mission est de vous aider à trouver la personne parfaite pour partager votre espace de vie en toute sérénité.</p>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="section" id="contact">
+        <h2>Contactez-nous</h2>
+        <form action="#" method="post">
+            <input type="text" placeholder="Votre nom" required><br>
+            <input type="email" placeholder="Votre email" required><br>
+            <textarea placeholder="Votre message" required></textarea><br>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 APART'NER - Tous droits réservés</p>
+        <p>Suivez-nous sur les réseaux sociaux : <a href="#" style="color: var(--text-light);">Facebook</a> | <a href="#" style="color: var(--text-light);">Instagram</a> | <a href="#" style="color: var(--text-light);">Twitter</a></p>
+    </footer>
+    <script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiYWtpeWFvYW8iLCJhIjoiY20zY2U2YnVuMGd1dzJqczd0MjU5cjduZiJ9.RJEij4RcQa_D6OLWU-eHrA';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/akiyaoao/cm3cf5ir9002c01nxdn9m6d2o',
+        projection: 'globe', // Display the map as a globe, since satellite-v9 defaults to Mercator
+        zoom: 1,
+        center: [30, 15]
+    });
+
+    map.addControl(new mapboxgl.NavigationControl());
+    map.scrollZoom.disable();
+
+    map.on('style.load', () => {
+        map.setFog({}); // Set the default atmosphere style
+    });
+        // Profils fictifs pour les tests
+        const profiles = [
+            {
+                name: "Alex",
+                age: 27,
+                interests: "Aime les animaux, non-fumeur",
+                compatibility: "90%",
+                location: [48.8566, 2.3522]  // Paris
+            },
+            {
+                name: "Marie",
+                age: 24,
+                interests: "Aime la tranquillité, végétarienne",
+                compatibility: "85%",
+                location: [48.864716, 2.349014]  // Localisation à Paris
+            },
+            {
+                name: "Lucas",
+                age: 29,
+                interests: "Sportif, aime cuisiner",
+                compatibility: "88%",
+                location: [48.858844, 2.294351]  // Près de la Tour Eiffel
+            }
+        ];
+    
+        // Fonction pour ajouter des marqueurs de profil sur la carte
+        profiles.forEach(profile => {
+            const marker = L.marker(profile.location).addTo(map);
+            
+            // Ajouter une popup avec les informations du profil
+            marker.bindPopup(`
+                <b>${profile.name}, ${profile.age} ans</b><br>
+                <p>${profile.interests}</p>
+                <p>Compatibilité : ${profile.compatibility}</p>
+            `);
+        });
+    
+        // Gestion de la carte et du zoom en fonction des marqueurs
+        const markers = profiles.map(profile => L.marker(profile.location));
+        const group = L.featureGroup(markers).addTo(map);
+        map.fitBounds(group.getBounds());
+    </script>
+</body>
+</html>
